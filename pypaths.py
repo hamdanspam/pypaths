@@ -14,20 +14,25 @@ class Pypath:
     
     def to_native(self, in_path):
         if "\\" in in_path: # if is a windows-style path
-            split_path = in_path.split('\\')
+            if sys.platform == 'win32':
+                return in_path
+            else:
+                split_path = in_path.split('\\')
         elif '/' in in_path: # if is a linux/mac/other style path
-            split_path = in_path.split('/')
+            if sys.platform == 'win32':
+                split_path = in_path.split('/')
+            else:
+                return in_path
         else:
             return os.path.join(in_path) # is already a path, has no delimiters
         
         out_path = ''
         
-#        if 'C:' in split_path:
-#            split_path[:] = [('C:' + os.sep) if elem == 'C:' for elem in split_path]
-        
         for elem in split_path:
-            if elem == 'C:':
-                elem = 'C:' + os.sep
+            if elem in ['C:','E:','D:','F:','G:','H:','I:','J:', 'K:'] and sys.platform == 'win32':
+                elem = elem + os.sep
+            else:
+                elem == '~/' # this won't always work.
                 
             out_path = os.path.join(out_path, elem) # will work with '' as initial val
         
