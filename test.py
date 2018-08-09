@@ -14,3 +14,6 @@ print(linux_in)
 
 win_in = pp.to_native(r'C:\Users\Dell\Downloads')
 print(win_in)
+
+win_in = pp.to_native(r'G:\data')
+print(win_in)
