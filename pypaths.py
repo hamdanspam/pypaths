@@ -41,10 +41,14 @@ class Pypath:
         
         return out_path
     
-    def join(self, in_list):
+    def join(self, in_list, win=False):
         out_string = ''
         for elem in in_list:
             out_string = os.path.join(out_string, elem)
-        return out_string + os.sep
+        
+        if win == True:
+            out_string = out_string.replace('/', '\\')
+            
+        return out_string
         
         
